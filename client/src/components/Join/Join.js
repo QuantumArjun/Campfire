@@ -44,10 +44,14 @@ export default function SignIn() {
       <div className="joinInnerContainer">
         <h1 className="heading">Join</h1>
         <div>
-          <input placeholder="Name" className="joinInput" type="text" onChange={(event) => setName(event.target.value)} />
+          <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
+            setName(event.target.value)
+            genRoom();
+            }
+          } />
         </div>
 
-        <Link onClick={genRoom} to={`/chat?name=${name}&room=${room}`}>
+        <Link  to={`/chat?name=${name}&room=${room}`}>
           <button className={'button mt-20'} type="submit">Sign In</button>
         </Link>
 
