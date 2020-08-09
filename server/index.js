@@ -30,6 +30,7 @@ io.on('connect', (socket) => {
     socket.broadcast.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has joined!` });
 
     if (isHost) {
+      console.log("Host is joining: ", {room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit} )
       const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit});
     }
 
