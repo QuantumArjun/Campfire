@@ -12,48 +12,64 @@ import './Join.css';
 //   return roomList[Math.floor(Math.random() * roomList.length)]
 // }
 
+
+/*
+Todo
+- Fix room generation: only called once
+- Randomize room codes (low to no chance of collision)
+*/
+
+
 export default function SignIn() {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [usedRooms, setUsedRooms] = useState([]);
-  var roomList = ["a", "b", "c"];
+  
 
-  const genRoom = () => {
-    var bool1 = true;
-    var count = 0;
-    while(bool1 && count < 10) {
-      var chosenRoom = roomList[Math.floor(Math.random() * roomList.length)];
-
-      console.log(!usedRooms.includes(chosenRoom))
-      console.log("CHosen:" + chosenRoom)
-      console.log("Used" + usedRooms)
-      
-      if (!usedRooms.includes(chosenRoom)) {
-        console.log("I made it!")
-        //usedRooms.push(chosenRoom);
-        setUsedRooms([...usedRooms, chosenRoom]);
-        setRoom(chosenRoom);
-        bool1 = false;
-      }
-      count++;
-    }
-  }
 
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
-        <h1 className="heading">Join</h1>
-        <div>
-          <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
-            setName(event.target.value)
-            genRoom();
-            }
-          } />
-        </div>
 
-        <Link  to={`/chat?name=${name}&room=${room}`}>
-          <button className={'button mt-20'} type="submit">Sign In</button>
-        </Link>
+        <section id="welcome">
+          <h1></h1>
+        <h1 className="heading">Scroll down to continue.</h1>
+        </section>
+
+        <section id="name">
+          <h1 className="heading">What is your name?</h1>
+          <div>
+            <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
+              setName(event.target.value)
+              }
+            } />
+          </div>
+        </section>
+
+        <section id="choice">
+          <Link to={`/setup?name=${name}`}>
+            <button className={'button mt-20'} type="submit">Start a Campfire</button>
+          </Link>
+
+          <button className={'button mt-20'} type="submit">Join a Campfire</button>
+        </section>
+
+        <section id="secretword">
+          <h1 className="heading">What is the Secret Word</h1>
+          <div>
+            <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
+              setName(event.target.value)
+
+              }
+            } />
+          </div>
+          
+          <Link to={`/setup?name=${name}`}>
+          <button className={'button mt-20'} type="submit">Continue</button>
+          </Link>
+        </section>
+
+
 
         
       </div>
@@ -61,6 +77,6 @@ export default function SignIn() {
   );
 }
 
-
+  
 //genRoom(roomList)
 //e => (!name || !room) ? e.preventDefault() : null
