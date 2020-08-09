@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Chat from './components/Chat/Chat';
+import Lobby from './components/Lobby/Lobby';
 import Join from './components/Join/Join';
 import Setup from './components/Setup/Setup';
 
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Router>
       <Route path="/" exact component={Join} />
-      <Route path="/chat" component={Chat} />
+      <Route path="/lobby" component={Lobby} />
       <Route path="/setup" component={Setup} />
     </Router>
   );

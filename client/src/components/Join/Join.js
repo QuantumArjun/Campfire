@@ -58,13 +58,13 @@ export default function SignIn() {
           <h1 className="heading">What is the Secret Word</h1>
           <div>
             <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
-              setName(event.target.value)
+              setRoom(event.target.value)
 
               }
             } />
           </div>
           
-          <Link to={`/setup?name=${name}`}>
+          <Link to={`/Lobby?name=${name}&room=${room}`}>
           <button className={'button mt-20'} type="submit">Continue</button>
           </Link>
         </section>

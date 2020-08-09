@@ -16,8 +16,8 @@ const Setup = ({ location }) => {
   const [usedRooms, setUsedRooms] = useState([]);
   const [mode, setMode] = useState('');
   const [topic, setTopic] = useState('');
-  const [lowerwordlimit, setLowerWordlimit] = useState('');
-  const [higherwordlimit, setHigherWordlimit] = useState('');
+  const [lowerwordlimit, setLowerWordLimit] = useState('');
+  const [higherwordlimit, setHigherWordLimit] = useState('');
   const [storylength, setStoryLength] = useState('');
   const [timelimit, setTimeLimit] = useState('');
   const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
@@ -30,7 +30,7 @@ const Setup = ({ location }) => {
       var chosenRoom = roomList[Math.floor(Math.random() * roomList.length)];
 
       console.log(!usedRooms.includes(chosenRoom))
-      console.log("CHosen:" + chosenRoom)
+      console.log("Chosen:" + chosenRoom)
       console.log("Used" + usedRooms)
       
       if (!usedRooms.includes(chosenRoom)) {
@@ -60,18 +60,23 @@ const Setup = ({ location }) => {
       <div>
         <section id = "general">
             <label for="topic">Topic:</label>
-            <input type="text" id="topic" name="topic"></input>
+            <input type="text" id="topic" name="topic" onChange={(event) => {
+              setTopic(event.target.value)}}></input>
             <label for="lowerwordlimit">Lower Word Limit:</label>
-            <input type="text" id="lowerwordlimit" name="lowerwordlimit"></input>
+            <input type="text" id="lowerwordlimit" name="lowerwordlimit" onChange={(event) => {
+              setLowerWordLimit(event.target.value)}}></input>
             <label for="higherwordlimit">Higher Word Limit:</label>
-            <input type="text" id="higherwordlimit" name="higherwordlimit"></input>
+            <input type="text" id="higherwordlimit" name="higherwordlimit" onChange={(event) => {
+              setHigherWordLimit(event.target.value)}}></input>
             <label for="storylength">Story Length:</label>
-            <input type="text" id="storylength" name="storylength"></input>
+            <input type="text" id="storylength" name="storylength" onChange={(event) => {
+              setStoryLength(event.target.value)}}></input>
             <label for="timelimit">Time Limit:</label>
-            <input type="text" id="timelimit" name="timelimit"></input>
+            <input type="text" id="timelimit" name="timelimit" onChange={(event) => {
+              setTimeLimit(event.target.value)}}></input>
             
         </section>
-        <Link to={`/lobby?name=${name}&room=${room}`}>
+        <Link to={`/lobby?name=${name}&room=${room}&mode=${mode}&topic=${topic}&lowerwordlimit=${lowerwordlimit}&higherwordlimit=${higherwordlimit}&storylength=${storylength}&timelimit=${timelimit}`}>
           <button className={'button mt-20'} type="submit">Continue</button>
         </Link>
       </div>
