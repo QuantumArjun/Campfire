@@ -14,6 +14,6 @@ const App = () => {
       <Route path="/setup" component={Setup} />
     </Router>
   );
-}
+} 
 
 export default App;

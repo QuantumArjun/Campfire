@@ -19,7 +19,7 @@ app.use(router);
 io.on('connect', (socket) => {
   
   
-  
+   
   
   socket.on('join', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, isHost}, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room, isHost });

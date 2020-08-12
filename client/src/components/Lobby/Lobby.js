@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from 'query-string';
 import io from "socket.io-client";
+import { Link } from "react-router-dom";
 
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
@@ -30,12 +31,13 @@ const Lobby = ({ location }) => {
   //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
   const ENDPOINT = 'http://localhost:5000/';
 
+
   useEffect(() => {
     const { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit } = queryString.parse(location.search);
     socket = io(ENDPOINT);
     var host = true;
 
-    if (users.length > 1) {
+    if (typeof timelimit === 'undefined') {
       host = false;
     } 
     
@@ -105,7 +107,22 @@ const Lobby = ({ location }) => {
     }
   }
 
+
   return (
+    <div>
+    <section id="invite">
+      <div className="outerContainer">
+      <h1> Set Up Your Campfire</h1>
+      <h2> Invite Your Friends</h2>
+      <h3> Secret Word: </h3>
+      <h2>Members of Your Campfire</h2> 
+      <TextContainer users={users}/>
+      <a href="#chat">
+        <button className={'button mt-20'} type="submit">Begin Your Story</button>
+      </a>
+      </div>
+    </section>
+    <section id="chat">
     <div className="outerContainer">
       <div className="container">
           <InfoBar room={room} />
@@ -113,6 +130,8 @@ const Lobby = ({ location }) => {
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
       <TextContainer users={users}/>
+    </div>
+    </section>
     </div>
   );
 }
