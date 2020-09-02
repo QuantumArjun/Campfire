@@ -7,6 +7,7 @@ import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
+import GameScreen from '../GameScreen/GameScreen';
 
 import './Lobby.css';
 
@@ -28,6 +29,7 @@ const Lobby = ({ location }) => {
   const [storylength, setStoryLength] = useState('');
   const [timelimit, setTimeLimit] = useState('');
   const [roomPrefs, setRoomPrefs] = useState('');
+  const [gameStart, setGameStart] = useState('');
   //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
   const ENDPOINT = 'http://localhost:5000/';
 
@@ -85,6 +87,13 @@ const Lobby = ({ location }) => {
     }
 
   }, [ENDPOINT, location.search]);
+
+
+  const onStartClick = (event) => {
+    event.preventDefault();
+    socket.emit('start');
+    console.log("Start!")
+  }
   
   useEffect(() => {
     socket.on('message', message => {
@@ -97,7 +106,15 @@ const Lobby = ({ location }) => {
       console.log("Users", users);
       console.log("RoomData", roomPrefs);
     });
+
+    socket.on("startSignal", ({}) => {
+      setGameStart("true");
+      console.log("Synced")
+    });
+
 }, []);
+
+
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -117,19 +134,14 @@ const Lobby = ({ location }) => {
       <h3> Secret Word: </h3>
       <h2>Members of Your Campfire</h2> 
       <TextContainer users={users}/>
-      <a href="#chat">
-        <button className={'button mt-20'} type="submit">Begin Your Story</button>
+      <a>
+        <button className={'button mt-20'} type="submit" onClick = {onStartClick}>Begin Your Story</button>
       </a>
       </div>
     </section>
     <section id="chat">
     <div className="outerContainer">
-      <div className="container">
-          <InfoBar room={room} />
-          <Messages messages={messages} name={name} />
-          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
-      </div>
-      <TextContainer users={users}/>
+      <GameScreen condition = {gameStart} />
     </div>
     </section>
     </div>
@@ -137,3 +149,8 @@ const Lobby = ({ location }) => {
 }
 
 export default Lobby;
+/*<div className="container">
+<InfoBar room={room} condition = {gameStart}/>
+<Messages messages={messages} name={name} condition = {gameStart}/>
+<Input message={message} setMessage={setMessage} sendMessage={sendMessage} condition = {gameStart}/>
+</div> */
