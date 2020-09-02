@@ -34,6 +34,7 @@ const Lobby = ({ location }) => {
   const ENDPOINT = 'http://localhost:5000/';
 
 
+
   useEffect(() => {
     const { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit } = queryString.parse(location.search);
     socket = io(ENDPOINT);
@@ -124,24 +125,36 @@ const Lobby = ({ location }) => {
     }
   }
 
+  function revealChat()
+  {
+    document.getElementById("chat").classList.remove("reveal-if-active");
+    document.getElementById("chatbox").classList.remove("reveal-if-active");
+    document.getElementById("invite").classList.add("reveal-if-active");
+    document.getElementById("inviteContainer").classList.add("reveal-if-active");
+  }
 
   return (
     <div>
     <section id="invite">
-      <div className="outerContainer">
+      <div className="outerContainer" id="inviteContainer">
       <h1> Set Up Your Campfire</h1>
       <h2> Invite Your Friends</h2>
-      <h3> Secret Word: </h3>
+      <h3> Secret Word: {room}</h3>
       <h2>Members of Your Campfire</h2> 
       <TextContainer users={users}/>
-      <a>
-        <button className={'button mt-20'} type="submit" onClick = {onStartClick}>Begin Your Story</button>
+      <a href="#chat">
+        <button className={'button mt-20'} type="submit" onClick={revealChat}>Begin Your Story</button>
       </a>
       </div>
     </section>
-    <section id="chat">
-    <div className="outerContainer">
-      <GameScreen condition = {gameStart} />
+    <section id="chat" className="reveal-if-active">
+    <div id="chatbox" className="chatContainer"  className="reveal-if-active">
+      <div className="rmContainer">
+          <InfoBar room={room} />
+           <Messages messages={messages} name={name} />
+          <div id="userBox"> <h2> Storytellers </h2><TextContainer users={users}/></div>
+      </div>
+      <div id="inputBox"><Input message={message} setMessage={setMessage} sendMessage={sendMessage} /></div>
     </div>
     </section>
     </div>
