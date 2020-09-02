@@ -32,7 +32,13 @@ const Setup = ({ location }) => {
     var bool1 = true;
     var count = 0;
     while(bool1 && count < 10) {
-      var chosenRoom = adj_arr[Math.floor(Math.random() * adj_arr.length)].charAt(0).toUpperCase() + noun_arr[Math.floor(Math.random() * noun_arr.length)].charAt(0).toUpperCase();
+      var adj_word = adj_arr[Math.floor(Math.random() * adj_arr.length)];
+      adj_word = adj_word.charAt(0).toUpperCase() + adj_word.slice(1);
+
+      var noun_word = noun_arr[Math.floor(Math.random() * noun_arr.length)];
+      noun_word = noun_word.charAt(0).toUpperCase() + noun_word.slice(1);
+
+      var chosenRoom = adj_word.concat(noun_word);
 
       console.log(!usedRooms.includes(chosenRoom))
       console.log("Chosen:" + chosenRoom)
