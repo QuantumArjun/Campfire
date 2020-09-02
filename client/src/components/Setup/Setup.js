@@ -21,13 +21,18 @@ const Setup = ({ location }) => {
   const [storylength, setStoryLength] = useState('');
   const [timelimit, setTimeLimit] = useState('');
   const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
+  
+  adj_arr = ['aggressive', 'alert', 'alive', 'ancient', 'anxious', 'arrow', 'attractive', 'average', 'bad', 'beautiful', 'beige', 'better', 'big', 'bitter', 'black', 'blue', 'brown', 'bumpy', 'busy', 'careful', 'cheap', 'chestnut', 'clear', 'cold', 'combative', 'cool', 'cotton', 'crazy', 'crooked', 'crystal', 'dangerous', 'dead', 'delicious', 'dim', 'drab', 'dry', 'dull', 'dusty', 'elderly', 'excited', 'expensive', 'fancy', 'fat', 'few', 'filthy', 'fresh', 'fuzzy', 'giant', 'good', 'graceful', 'granite', 'green', 'handsome', 'happy', 'hard', 'harsh', 'hollow', 'hot', 'huge', 'hungry', 'large', 'lazy', 'light', 'long', 'low', 'massive', 'mellow', 'melodic', 'miniscule', 'modern', 'new', 'noisy', 'oak', 'octagonal', 'old', 'orange', 'oval', 'petite', 'pink', 'plain', 'plastic', 'poor', 'puny', 'purple', 'quiet', 'rainy', 'red', 'rich', 'right', 'round', 'sad', 'safe', 'salty', 'sane', 'scared', 'shallow', 'sharp', 'shiny', 'short', 'shrill', 'shy', 'skinny', 'small', 'soft', 'solid', 'sore', 'sour', 'square', 'steep', 'sticky', 'strong', 'superior', 'sweet', 'swift', 'tan', 'tart', 'teak', 'teeny', 'terrible', 'tiny', 'tired', 'tremendous', 'triangular', 'ugly', 'unusual', 'weak', 'weary', 'wet', 'whispering', 'white', 'wild', 'wooden', 'woolen', 'wrong', 'yellow', 'young']
+  noun_arr = ['Adventure', 'Animals', 'backpack', 'boots', 'cabin', 'camp', 'camper', 'campfire', 'campground', 'canoe', 'canteen', 'cap', 'caravan', 'climb', 'compass', 'equipment', 'evergreen', 'fishing', 'flashlight', 'forest', 'hammock', 'hat', 'hike', 'hiking', 'boots', 'hunting', 'hut', 'kayak', 'knapsack', 'lake', 'lantern', 'map', 'moon', 'natural', 'nature', 'oar', 'outdoors', 'outside', 'paddle', 'park', 'path', 'tent', 'rope', 'scenery', 'sleepingBag', 'stars', 'statePark', 'sun', 'sunscreen', 'tarp', 'tent', 'trail', 'trailMix', 'trailer', 'trees', 'trip', 'vest', 'walking', 'waterBottle', 'waterfall', 'wildlife', 'woods', 'Backpack', 'Binoculars', 'Boots', 'Marshmallow', 'Radio', 'SleepingBag', 'Tent', 'Torch', 'WaterBottle', 'Canopy', 'Forest', 'Mushroom', 'Terrain', 'Wildlife', 'Birdwatching', 'Hike', 'Stargazing', 'Scouting']
+
+  
   var roomList = ["a", "b", "c"];
 
   const genRoom = () => {
     var bool1 = true;
     var count = 0;
     while(bool1 && count < 10) {
-      var chosenRoom = roomList[Math.floor(Math.random() * roomList.length)];
+      var chosenRoom = adj_arr[Math.floor(Math.random() * roomadj_arrList.length)] + noun_arr[Math.floor(Math.random() * noun_arr.length)];
 
       console.log(!usedRooms.includes(chosenRoom))
       console.log("Chosen:" + chosenRoom)
