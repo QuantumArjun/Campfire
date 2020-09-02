@@ -48,6 +48,13 @@ io.on('connect', (socket) => {
     callback();
   }); 
 
+
+  socket.on('start', () => {
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit('startSignal', {});
+  }); 
+
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
 

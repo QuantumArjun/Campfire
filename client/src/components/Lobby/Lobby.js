@@ -7,6 +7,7 @@ import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
+import GameScreen from '../GameScreen/GameScreen';
 
 import './Lobby.css';
 
@@ -28,6 +29,7 @@ const Lobby = ({ location }) => {
   const [storylength, setStoryLength] = useState('');
   const [timelimit, setTimeLimit] = useState('');
   const [roomPrefs, setRoomPrefs] = useState('');
+  const [gameStart, setGameStart] = useState('');
   //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
   const ENDPOINT = 'http://localhost:5000/';
 
@@ -86,6 +88,13 @@ const Lobby = ({ location }) => {
     }
 
   }, [ENDPOINT, location.search]);
+
+
+  const onStartClick = (event) => {
+    event.preventDefault();
+    socket.emit('start');
+    console.log("Start!")
+  }
   
   useEffect(() => {
     socket.on('message', message => {
@@ -98,7 +107,15 @@ const Lobby = ({ location }) => {
       console.log("Users", users);
       console.log("RoomData", roomPrefs);
     });
+
+    socket.on("startSignal", ({}) => {
+      setGameStart("true");
+      console.log("Synced")
+    });
+
 }, []);
+
+
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -145,3 +162,8 @@ const Lobby = ({ location }) => {
 }
 
 export default Lobby;
+/*<div className="container">
+<InfoBar room={room} condition = {gameStart}/>
+<Messages messages={messages} name={name} condition = {gameStart}/>
+<Input message={message} setMessage={setMessage} sendMessage={sendMessage} condition = {gameStart}/>
+</div> */
