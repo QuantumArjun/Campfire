@@ -57,28 +57,39 @@ const Setup = ({ location }) => {
 
 
   return (
-      <div>
+      <div class="Container">
         <section id = "general">
+          <h1> set your preferences </h1> <br></br>
             <label for="topic">Topic:</label>
             <input type="text" id="topic" name="topic" onChange={(event) => {
               setTopic(event.target.value)}}></input>
-            <label for="lowerwordlimit">Lower Word Limit:</label>
-            <input type="text" id="lowerwordlimit" name="lowerwordlimit" onChange={(event) => {
-              setLowerWordLimit(event.target.value)}}></input>
-            <label for="higherwordlimit">Higher Word Limit:</label>
-            <input type="text" id="higherwordlimit" name="higherwordlimit" onChange={(event) => {
-              setHigherWordLimit(event.target.value)}}></input>
-            <label for="storylength">Story Length:</label>
-            <input type="text" id="storylength" name="storylength" onChange={(event) => {
-              setStoryLength(event.target.value)}}></input>
-            <label for="timelimit">Time Limit:</label>
-            <input type="text" id="timelimit" name="timelimit" onChange={(event) => {
-              setTimeLimit(event.target.value)}}></input>
+            <div className="setup-grid">
+              <div>
+                <label for="lowerwordlimit">Lower Word Limit:</label>
+                <input type="text" id="lowerwordlimit" name="lowerwordlimit" onChange={(event) => {
+                  setLowerWordLimit(event.target.value)}}></input>
+              </div>
+              <div>
+                <label for="higherwordlimit">Higher Word Limit:</label>
+                <input type="text" id="higherwordlimit" name="higherwordlimit" onChange={(event) => {
+                  setHigherWordLimit(event.target.value)}}></input>
+              </div>
+              <div>
+                <label for="storylength">Story Length:</label>
+                <input type="text" id="storylength" name="storylength" onChange={(event) => {
+                  setStoryLength(event.target.value)}}></input>
+              </div>
+              <div>
+                <label for="timelimit">Time Limit:</label>
+                <input type="text" id="timelimit" name="timelimit" onChange={(event) => {
+                  setTimeLimit(event.target.value)}}></input>
+              </div>
+              </div>
             
-        </section>
         <Link to={`/lobby?name=${name}&room=${room}&mode=${mode}&topic=${topic}&lowerwordlimit=${lowerwordlimit}&higherwordlimit=${higherwordlimit}&storylength=${storylength}&timelimit=${timelimit}`}>
-          <button className={'button mt-20'} type="submit">Continue</button>
+          <button className={'setup-button mt-20'} type="submit">Continue</button>
         </Link>
+        </section>
       </div>
   );
 }

@@ -12,6 +12,12 @@ import './Join.css';
 //   return roomList[Math.floor(Math.random() * roomList.length)]
 // }
 
+function revealSection()
+{
+  document.getElementById("secretword").classList.add("visible");
+  document.getElementById("secretword").classList.remove("reveal-if-active");
+  // document.getElementById("secretword").style.display = "initial";
+}
 
 /*
 Todo
@@ -28,34 +34,37 @@ export default function SignIn() {
 
 
   return (
-    <div className="joinOuterContainer">
-      <div className="joinInnerContainer">
-
+    <div class="joinContainer">
         <section id="welcome">
-          <h1></h1>
-        <h1 className="heading">Scroll down to continue.</h1>
+        <h1>welcome to</h1>
+        <h1 id="title">Campfire</h1>
+          <div class="welcomebg">
+          </div>
+          <h3>scroll down to continue.</h3>
         </section>
 
         <section id="name">
-          <h1 className="heading">What is your name?</h1>
+          <h1 className="heading">what is your name?</h1>
           <div>
             <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
               setName(event.target.value)
               }
             } />
+            <a href="#choice"><button className={'button'} type="submit">continue</button></a>
           </div>
         </section>
 
         <section id="choice">
+          <div className="bubblecontain">
           <Link to={`/setup?name=${name}`}>
-            <button className={'button mt-20'} type="submit">Start a Campfire</button>
+            <button className={'button'} type="submit">start a campfire</button>
           </Link>
-
-          <button className={'button mt-20'} type="submit">Join a Campfire</button>
+          <button className={'button'} type="submit" onClick={revealSection}>join a campfire</button>
+        </div>
         </section>
 
-        <section id="secretword">
-          <h1 className="heading">What is the Secret Word</h1>
+        <section id="secretword" className="reveal-if-active">
+          <h1 className="heading">what is the secret word</h1>
           <div>
             <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
               setRoom(event.target.value)
@@ -65,15 +74,10 @@ export default function SignIn() {
           </div>
           
           <Link to={`/Lobby?name=${name}&room=${room}`}>
-          <button className={'button mt-20'} type="submit">Continue</button>
+          <button className={'button mt-20'} type="submit">continue</button>
           </Link>
         </section>
-
-
-
-        
       </div>
-    </div>
   );
 }
 

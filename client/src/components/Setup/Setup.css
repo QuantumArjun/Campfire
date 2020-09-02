@@ -1,41 +1,94 @@
-html, body {
+ html, body {
     font-family: 'Roboto', sans-serif;
     padding: 0;
     margin: 0;
   }
+
+h1
+{
+  font-size: 3em;
+  z-index: 1;
+  margin: 0;
+}
+
+label
+{
+  text-transform: lowercase;
+  font-size: 1.5em;
+}
+
+.setup-grid
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 1.5em;
+}
+
+section
+{
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
   
   #root {
     height: 100vh;
-  }
+  }/*
   
   * {
     box-sizing: border-box;
   }
-  
-  .joinOuterContainer {
+  */
+  .Container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     text-align: center;
     height: 100vh;
+    width: 50%;
+    margin: 0 auto;
     align-items: center;
-    background-color: #1A1A1D;
+
   }
-  
-  .joinInnerContainer {
-    width: 20%;
+
+  .setup-input {
+    width: 100%; /* Full width */
+    padding: 10px; /* Some padding */ 
+    background-color: #2e2e2e;
+    font-size: 2em;
+    color: #dbdbdb;
+    border: none;
+    border-radius: 10px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 4%; /* Bottom margin */
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+    }
+    
+
+    .setup-button {
+      color: #dbdbdb !important;
+      text-transform: lowercase;
+      text-decoration: none;
+      font-size: 2em;
+      background: #2e2e2e;
+      padding: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-radius: 5px;
+      display: inline-block;
+      border: none;
+      width: 30%;
   }
+  /*
   
   .joinInput {
     border-radius: 0;
     padding: 15px 20px;
     width: 100%;
-  }
-  
-  .heading {
-    color: white;
-    font-size: 2.5em;
-    padding-bottom: 10px;
-    border-bottom: 2px solid white;
   }
   
   .button {
@@ -67,4 +120,4 @@ html, body {
   
   button:focus {
     outline: 0;
-  }
+  } */

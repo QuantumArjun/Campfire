@@ -1,19 +1,121 @@
-.outerContainer {
-  display: flex;
+html, body {
+  font-family: 'Roboto', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+section
+{
+  padding-top: 0;
+  min-height: 80vh;
+}
+
+#chat
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 80vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 10fr 1fr;
+  grid-template-columns: 0.8fr;
+  justify-content: center;
+}
+
+#userBox
+{
+  position: fixed;
+  top: 20vh;
+  left: 4vw;
+}
+
+#inputBox
+{
+  display: grid;
+  grid-template-columns: 0.8fr;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2em;
+}
+
+
+.chatContainer
+{
+  width: 100%;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  border-radius: 30px;
   background-color: #1A1A1D;
 }
 
-.container {
+.outerContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background: #FFFFFF;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 80vh;
+  padding: 20%;
+  margin: 0 auto;
+  border-radius: 30px;
+  background-color: #1A1A1D;
+  z-index: 3;
+}
+
+input[type=text], select, textarea {
+  width: 100%; /* Full width */
+  padding: 30px; /* Some padding */ 
+  background-color: #2e2e2e;
+  font-size: 2em;
+  color: #dbdbdb;
+  border: none;
+  border-radius: 10px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 4%; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+  }
+
+.rmContainer {
+  
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  /* background: #FFFFFF; */
   border-radius: 8px;
-  height: 60%;
-  width: 35%; 
+  width: 80%; 
+  height: 70vh;
+  margin: 0 auto;
+  /* margin-top: 100vh; */
+}
+.reveal-if-active {
+  display: none;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: scale(0.8);
+  transition: 0.5s;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1A1A1D
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
