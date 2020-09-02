@@ -42,6 +42,7 @@ const Lobby = ({ location }) => {
 
     if (typeof timelimit === 'undefined') {
       host = false;
+      document.getElementById("begin-btn").classList.add("reveal-if-active");
     } 
     
     if(host) 
@@ -62,7 +63,7 @@ const Lobby = ({ location }) => {
       //console.log(timelimit);
       setMode(mode);
       //console.log(mode);
-
+      
       var isHost = true;
   
       socket.emit('join', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, isHost}, (error) => {
@@ -89,6 +90,13 @@ const Lobby = ({ location }) => {
 
   }, [ENDPOINT, location.search]);
 
+  function revealChat()
+  {
+    document.getElementById("chat").classList.remove("reveal-if-active");
+    document.getElementById("chatbox").classList.remove("reveal-if-active");
+    document.getElementById("invite").classList.add("reveal-if-active");
+    document.getElementById("inviteContainer").classList.add("reveal-if-active");
+  }
 
   const onStartClick = (event) => {
     event.preventDefault();
@@ -109,13 +117,12 @@ const Lobby = ({ location }) => {
     });
 
     socket.on("startSignal", ({}) => {
-      setGameStart("true");
+      //setGameStart("true");
+      revealChat();
       console.log("Synced")
     });
 
 }, []);
-
-
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -123,14 +130,6 @@ const Lobby = ({ location }) => {
     if(message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
-  }
-
-  function revealChat()
-  {
-    document.getElementById("chat").classList.remove("reveal-if-active");
-    document.getElementById("chatbox").classList.remove("reveal-if-active");
-    document.getElementById("invite").classList.add("reveal-if-active");
-    document.getElementById("inviteContainer").classList.add("reveal-if-active");
   }
 
   return (
@@ -142,10 +141,13 @@ const Lobby = ({ location }) => {
       <h3> Secret Word: {room}</h3>
       <h2>Members of Your Campfire</h2> 
       <TextContainer users={users}/>
-      <a href="#chat">
-        <button className={'button mt-20'} type="submit" onClick={revealChat}>Begin Your Story</button>
-      </a>
+      <div id = "begin-btn">
+        <a href="#chat">
+          <button className={'button mt-20'} type="submit" onClick={revealChat}>Begin Your Story</button>
+        </a>
       </div>
+  
+    </div>
     </section>
     <section id="chat" className="reveal-if-active">
     <div id="chatbox" className="chatContainer"  className="reveal-if-active">

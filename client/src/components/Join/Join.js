@@ -38,7 +38,7 @@ export default function SignIn() {
         <section id="welcome">
         <h1>welcome to</h1>
         <h1 id="title">Campfire</h1>
-          <div class="welcomebg">
+          <div className="welcomebg">
           </div>
           <h3>scroll down to continue.</h3>
         </section>
