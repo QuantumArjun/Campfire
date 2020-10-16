@@ -250,6 +250,35 @@ input[type=text], select, textarea {
 	margin-right: -1.25em;
 }
 
+.infoCircle {
+  position: absolute;
+  top: 90%; 
+  left: 2.5%;
+  z-index: 10;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  background: #fff;
+  color: black;
+  text-align: center;
+  font: 20px Arial, sans-serif;
+  opacity: 0.7;
+}
+
+#aboutUs
+{
+  position: absolute;
+  top: 70%;
+  left: 2.5%;
+  width: 25%;
+  height: 35%;
+  background-color: #2e2e2e;
+  color: #dbdbdb;
+  display: none;
+
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
   .joinOuterContainer {
     height: 100%;
