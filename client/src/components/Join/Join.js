@@ -31,50 +31,66 @@ export default function SignIn() {
   const [room, setRoom] = useState('');
   const [usedRooms, setUsedRooms] = useState([]);
   
-
-
+  function handleUserInput(e, name){
+    if (e.key === 'Enter') {
+        scrollTo(name);
+    }
+  }
+  function scrollTo(name)
+  {
+      var element = document.getElementById(name).scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+  function revealScroll()
+  {
+    revealSection();
+    scrollTo('secretword');
+  }
   return (
-    <div class="joinContainer">
+    <div className="joinContainer">
+      <div id="aboutUs">hello lorem ipsum</div>
+      <Link to={`/about`}><div className="infoCircle">i</div></Link>
         <section id="welcome">
         <h1>welcome to</h1>
         <h1 id="title">Campfire</h1>
           <div className="welcomebg">
           </div>
-          <h3>scroll down to continue.</h3>
+          <h3>press tab or scroll down to continue.</h3>
         </section>
 
         <section id="name">
           <h1 className="heading">what is your name?</h1>
           <div>
-            <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
-              setName(event.target.value)
-              }
-            } />
-            <a href="#choice"><button className={'button'} type="submit">continue</button></a>
+            <input placeholder="Name" tabIndex = "0" className="joinInput" type="text" onChange={(event) => {
+              setName(event.target.value)}} onKeyPress={(e) => {handleUserInput(e, 'choice')}} />
+            <a href="#choice"><button className={'button'} type="submit" tabIndex = "1">continue</button></a>
           </div>
         </section>
 
         <section id="choice">
           <div className="bubblecontain">
           <Link to={`/setup?name=${name}`}>
-            <button className={'button'} type="submit">start a campfire</button>
+            <button className={'button'} type="submit" tabIndex = "2">start a campfire</button>
           </Link>
-          <button className={'button'} type="submit" onClick={revealSection}>join a campfire</button>
+          <button className={'button'} type="submit" onClick={revealScroll} tabIndex="3">join a campfire</button>
         </div>
         </section>
 
         <section id="secretword" className="reveal-if-active">
           <h1 className="heading">what is the secret word</h1>
           <div>
-            <input placeholder="Name" className="joinInput" type="text" onChange={(event) => {
-              setRoom(event.target.value)
-
-              }
-            } />
+            <input placeholder="Name" className="joinInput" type="text"  tabIndex = "4" 
+              onChange={(event) => {setRoom(event.target.value)}}  
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  const { href } = window.location;
+                  window.location.href = `/Lobby?name=${name}&room=${room}`;
+                }
+            }}/>
           </div>
           
           <Link to={`/Lobby?name=${name}&room=${room}`}>
-          <button className={'button mt-20'} type="submit">continue</button>
+          <button className={'button mt-20'} type="submit">
+            continue</button>
           </Link>
         </section>
       </div>
