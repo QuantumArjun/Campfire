@@ -143,7 +143,7 @@ const Lobby = ({ location }) => {
       <TextContainer users={users}/>
       <div id = "begin-btn">
         <a href="#chat">
-          <button className={'button mt-20'} type="submit" onClick={revealChat}>Begin Your Story</button>
+          <button className={'button mt-20'} type="submit" onClick={onStartClick}>Begin Your Story</button>
         </a>
       </div>
   
