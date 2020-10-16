@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import './About.css';
 
 const About = () => {
+  console.log("On the page!")
 return(
     <div>
     <section id="aboutUs">
