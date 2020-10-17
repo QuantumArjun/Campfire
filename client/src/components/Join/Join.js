@@ -3,15 +3,6 @@ import { Link } from "react-router-dom";
 
 import './Join.css';
 
-//Update state to avoid double booking rooms 
-//Create a App state
-
-
-// function genRoom() {
-//   var roomList = ["a", "b", "c"]
-//   return roomList[Math.floor(Math.random() * roomList.length)]
-// }
-
 function revealSection()
 {
   document.getElementById("secretword").classList.add("visible");
@@ -97,6 +88,3 @@ export default function SignIn() {
   );
 }
 
-  
-//genRoom(roomList)
-//e => (!name || !room) ? e.preventDefault() : null
