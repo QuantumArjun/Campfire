@@ -4,18 +4,16 @@ html, body {
     margin: 0;
   }
   
-  section
+  #about
   {
-    padding-top: 0;
+    padding-top: 10vh;
     min-height: 80vh;
   }
 
   
 .outerContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* position: relative;
+    top: 5%; */
     width: 80%;
     height: 80vh;
     padding: 20%;

@@ -5,7 +5,7 @@ import './About.css';
 const About = () => {
 return(
     <div>
-    <section id="aboutUs">
+    <section id="about">
       <div className="outerContainer">
         <h1>About Campfire</h1>
         <p>Ever played that sentence constructor game, where each person in a group adds a single word to form the sentences of a collective story? Campfire is a digitalized version of that sort of storytelling experience. 
@@ -14,6 +14,9 @@ return(
         <p>
         All members of the campfire will then take turns adding on to an ever growing story, making contributions according to the constraints specified earlier by the host. The experience can be fast paced, in which each member is given mere seconds to think of a word, or slow paced, in which each member may mull over a sentence or two before submitting. The kind of story that manifests from this campfire gathering depends entirely on the host's design. 
         </p>
+      </div>
+      <div>
+      <Link to={`/`}><h3>← Awesome! Take me back to the homepage.</h3></Link>
       </div>
       </section>
       </div>
