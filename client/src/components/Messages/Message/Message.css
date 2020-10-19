@@ -46,27 +46,3 @@
 .pr-10 {
   padding-right: 10px;
 }
-
-.justifyStart {
-  justify-content: flex-start;
-}
-
-.justifyEnd {
-  justify-content: flex-end;
-}
-
-.colorWhite {
-  color: rgb(201, 201, 201);
-}
-
-.colorDark {
-  color: #d3d3d3;
-}
-
-.backgroundBlue {
-  /* background: #1A1A1D; */
-}
-
-.backgroundLight {
-  /* background: #1A1A1D; */
-}
