@@ -1,5 +1,6 @@
 const users = [];
 const rooms = [];
+const colors = ["red", "blue", "green", "orange", "yellow", "purple"];
 
 const addUser = ({ id, name, room, isHost }) => {
   name = name.trim().toLowerCase();
@@ -10,7 +11,11 @@ const addUser = ({ id, name, room, isHost }) => {
   if(!name || !room) return { error: 'Username and room are required.' };
   if(existingUser) return { error: 'Username is taken.' };
 
-  const user = { id, name, room, isHost };
+  //choose rand color
+  const random = Math.floor(Math.random() * colors.length);
+  var color = colors[random];
+
+  const user = { id, name, room, color, isHost };
 
   users.push(user);
 
