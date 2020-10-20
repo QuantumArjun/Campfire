@@ -1,7 +1,14 @@
 .messages {
-  /* padding: 5% 0; */
+  padding: 5%;
   overflow: auto;
   flex: auto;
   background: #1A1A1D;
   border-radius: 10px;
+  text-align: left;
+}
+
+.amessage
+{
+  display: inline-block;
+  margin: 5px;
 }

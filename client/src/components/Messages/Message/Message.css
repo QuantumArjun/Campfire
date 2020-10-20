@@ -1,18 +1,9 @@
 .messageBox {
-  /* background: #1A1A1D; */
-  border-radius: 20px;
-  /* padding: 5px 20px; */
-  color: white;
   display: inline-block;
-  width: 100%;
-  /* margin: 1em; */
-  /* padding-top: 2em;
-  padding-bottom: 2em; */
+  width: auto;
 }
 
 .messageText {
-  width: 100%;
-  float: left;
   font-size: 1.5em;
   word-wrap: break-word;
   text-align: justify;
@@ -24,12 +15,12 @@
   vertical-align: middle;
 }
 
-.messageContainer {
+/* .messageContainer {
   display: grid;
   grid-template-columns: 1fr 8fr;
   padding: 0 5%;
   margin-top: 3px;
-}
+} */
 
 .sentText {
   display: flex;
