@@ -3,21 +3,15 @@ import { Link } from "react-router-dom";
 
 import './Join.css';
 
+//Section as a component
 function revealSection()
 {
   document.getElementById("secretword").classList.add("visible");
   document.getElementById("secretword").classList.remove("reveal-if-active");
-  // document.getElementById("secretword").style.display = "initial";
 }
 
-/*
-Todo
-- Fix room generation: only called once
-- Randomize room codes (low to no chance of collision)
-*/
 
-
-export default function SignIn() {
+export default function Join() {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [usedRooms, setUsedRooms] = useState([]);
@@ -27,15 +21,18 @@ export default function SignIn() {
         scrollTo(name);
     }
   }
+
   function scrollTo(name)
   {
       var element = document.getElementById(name).scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
+
   function revealScroll()
   {
     revealSection();
     scrollTo('secretword');
   }
+
   return (
     <div className="joinContainer">
       <div id="aboutUs">hello lorem ipsum</div>
@@ -70,18 +67,17 @@ export default function SignIn() {
           <h1 className="heading">what is the secret word</h1>
           <div>
             <input placeholder="Name" className="joinInput" type="text"  tabIndex = "4" 
-              onChange={(event) => {setRoom(event.target.value)}}  
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  const { href } = window.location;
-                  window.location.href = `/Lobby?name=${name}&room=${room}`;
-                }
-            }}/>
+              onChange={(event) => {setRoom(event.target.value)}} 
+              // onKeyPress={(e) => {
+              //   if (e.key === 'Enter') {
+              //     console.log("s");
+              //     // window.location.href = `/Lobby?name=${name}&room=${room}`;
+              //   }}
+              //}
+            />
           </div>
-          
-          <Link to={`/Lobby?name=${name}&room=${room}`}>
-          <button className={'button mt-20'} type="submit">
-            continue</button>
+          <Link to={ {pathname: '/lobby', state: { name, room }}}>
+            <button className={'button mt-20'} type="submit"> Continue </button>
           </Link>
         </section>
       </div>

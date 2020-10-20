@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from 'query-string';
 import { Link } from "react-router-dom";
-
+import { Lobby } from "../Lobby/Lobby.js";
 
 import './Setup.css';
 /*
@@ -96,10 +96,12 @@ const Setup = ({ location }) => {
                   setTimeLimit(event.target.value)}}></input>
               </div>
               </div>
-            
-        <Link to={`/lobby?name=${name}&room=${room}&mode=${mode}&topic=${topic}&lowerwordlimit=${lowerwordlimit}&higherwordlimit=${higherwordlimit}&storylength=${storylength}&timelimit=${timelimit}`}>
+        <Link to={ {pathname: '/lobby',
+          state: {name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength,timelimit}}}>
           <button className={'setup-button mt-20'} type="submit">Continue</button>
         </Link>
+
+        
         </section>
       </div>
   );

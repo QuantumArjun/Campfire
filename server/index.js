@@ -20,20 +20,29 @@ io.on('connect', (socket) => {
   
   
    
-  
-  socket.on('join', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, isHost}, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, room, isHost });
+  socket.on('create', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit}, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room, isHost: true });
     if(error) return callback(error);
 
     socket.join(user.room);
     // socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`}); //nuked
     // socket.broadcast.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has joined!` });
 
-    if (isHost) {
-      console.log("Host is joining: ", {room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit} )
-      const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit});
-    }
+    console.log("Host is joining: ", {room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit} )
+    const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit});
 
+    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room), roomPrefs: getRoom(room) });
+
+    callback(); 
+  });
+
+  socket.on('join', ({name, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room, isHost: false });
+    if(error) return callback(error);
+
+    socket.join(user.room);
+    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`}); //nuked
+    socket.broadcast.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has joined!` });
     io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room), roomPrefs: getRoom(room) });
 
     callback(); 

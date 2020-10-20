@@ -11,8 +11,8 @@ const App = () => {
   return (
     <Router>
       <Route path="/" exact component={Join} />
-      <Route path="/lobby" component={Lobby} />
       <Route path="/setup" component={Setup} />
+      <Route path="/lobby" component={Lobby} />
       <Route path="/about" component={About} />
     </Router>
   );
