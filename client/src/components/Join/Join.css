@@ -4,7 +4,7 @@ html, body {
   margin: 0;
   /* background: #1A1A1D; */
   background: black;
-  background-image: url('../../superslowstars.gif');
+  background-image: url('../../assets/superslowstars.gif');
   color: #dbdbdb;
   scroll-behavior: smooth;
   scroll-snap-type: proximity;
@@ -14,9 +14,9 @@ html, body {
 
 @font-face {
   font-family: 'fireflight';
-  src: url('../../fire_flight/Fire Flight FREE.ttf')
+  src: url('../../assets/fire_flight/Fire Flight FREE.ttf')
   format('truetype');
-  src: url('../../fire_flight/Fire Flight FREE.otf')
+  src: url('../../assets/fire_flight/Fire Flight FREE.otf')
   format('opentype');
 }
 
@@ -30,7 +30,7 @@ html, body {
 @font-face
 {
   font-family: 'breathefire';
-  src: url('../../breathe_fire/Breathe Fire.otf')
+  src: url('../../assets/breathe_fire/Breathe Fire.otf')
   format('opentype');
 } 
 
@@ -60,7 +60,7 @@ section
 {
   height: 100%;
   width: 100%;
-  background-image: url("../../../src/campfire gif.gif");
+  background-image: url("../../assets/campfire gif.gif");
   background-size: contain;
   /* background-position: left bottom; */
   background-position: center bottom;
@@ -75,7 +75,7 @@ section
 {
   height: 100%;
   width: 100%;
-  background-image: url("../../../src/campfire gif.gif");
+  background-image: url("../../assets/campfire gif.gif");
   background-size: contain;
   background-position: left bottom;
   /* background-position: center bottom; */
