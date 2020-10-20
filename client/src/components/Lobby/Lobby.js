@@ -18,55 +18,26 @@ const Lobby = ({ location }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
-
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
-  const [usedRooms, setUsedRooms] = useState([]);
-  const [mode, setMode] = useState('');
-  const [topic, setTopic] = useState('');
-  const [lowerwordlimit, setLowerWordLimit] = useState('');
-  const [higherwordlimit, setHigherWordLimit] = useState('');
-  const [storylength, setStoryLength] = useState('');
-  const [timelimit, setTimeLimit] = useState('');
   const [roomPrefs, setRoomPrefs] = useState('');
   const [gameStart, setGameStart] = useState('');
   //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
+  console.log({location})
   const ENDPOINT = 'http://localhost:5000/';
 
 
 
   useEffect(() => {
-    const { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit } = queryString.parse(location.search);
+    const {name, room, isHost} =  location.state;
     socket = io(ENDPOINT);
-    var host = true;
-
-    if (typeof timelimit === 'undefined') {
-      host = false;
-      document.getElementById("begin-btn").classList.add("reveal-if-active");
-    } 
     
-    if(host) 
+    if(isHost) 
     {
-      setRoom(room);
+      const {mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit } = location.state;
+      document.getElementById("begin-btn").classList.add("reveal-if-active");   
       console.log("Client1 Room is:", room);
-      setName(name);
       console.log(name);
-      setTopic(topic);
-      //console.log(topic);
-      setStoryLength(storylength);
-      //console.log(storylength);
-      setLowerWordLimit(lowerwordlimit);
-      //console.log(lowerwordlimit);
-      setHigherWordLimit(higherwordlimit);
-      //console.log(higherwordlimit);
-      setTimeLimit(timelimit);
-      //console.log(timelimit);
-      setMode(mode);
-      //console.log(mode);
-      
-      var isHost = true;
   
-      socket.emit('join', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, isHost}, (error) => {
+      socket.emit('create', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit}, (error) => {
         if(error) {
           alert(error);
         }
@@ -74,14 +45,10 @@ const Lobby = ({ location }) => {
     }
     else 
     {
-      setRoom(room);
       console.log("Client Room is:", room);
-      setName(name);
       console.log(name);
 
-      var isHost = false;
-
-      socket.emit('join', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, isHost}, (error) => {
+      socket.emit('join', { name, room}, (error) => {
         if(error) {
           alert(error);
         }
@@ -131,14 +98,14 @@ const Lobby = ({ location }) => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   }
-
+  
   return (
     <div>
     <section id="invite">
       <div className="outerContainer" id="inviteContainer">
       <h1> Set Up Your Campfire</h1>
       <h2> Invite Your Friends</h2>
-      <h3> Secret Word: {room}</h3>
+      <h3> Secret Word: {location.state.room} </h3>
       <h2>Members of Your Campfire</h2> 
       <TextContainer users={users}/>
       <div id = "begin-btn">
@@ -152,8 +119,8 @@ const Lobby = ({ location }) => {
     <section id="chat" className="reveal-if-active">
     <div id="chatbox" className="chatContainer"  className="reveal-if-active">
       <div className="rmContainer">
-          <InfoBar room={room} />
-           <Messages messages={messages} name={name} />
+          <InfoBar room={location.state.room} />
+           <Messages messages={messages} name={location.state.name} />
           <div id="userBox"> <h2> Storytellers </h2><TextContainer users={users}/></div>
       </div>
       <div id="inputBox"><Input message={message} setMessage={setMessage} sendMessage={sendMessage} /></div>
