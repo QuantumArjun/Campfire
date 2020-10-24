@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import queryString from 'query-string';
 import io from "socket.io-client";
 import { Link } from "react-router-dom";
@@ -18,7 +19,7 @@ const Lobby = ({ location }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
-  const [roomPrefs, setRoomPrefs] = useState('');
+  const [roomPrefs, setRoomPrefs] = useState([]);
   const [gameStart, setGameStart] = useState('');
   //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
   console.log({location})
@@ -80,7 +81,7 @@ const Lobby = ({ location }) => {
       setUsers(users);
       setRoomPrefs(roomPrefs);
       console.log("Users", users);
-      console.log("RoomData", roomPrefs);
+      // console.log("RoomData", roomPrefs);
     });
 
     socket.on("startSignal", ({}) => {
@@ -123,7 +124,7 @@ const Lobby = ({ location }) => {
            <Messages messages={messages} name={location.state.name} />
           <div id="userBox"> <h2> Storytellers </h2><TextContainer users={users}/></div>
       </div>
-      <div id="inputBox"><Input message={message} setMessage={setMessage} sendMessage={sendMessage} /></div>
+      <div id="inputBox"><Input message={message} setMessage={setMessage} sendMessage={sendMessage} higherwordlimit={location.state.higherwordlimit} lowerwordlimit = {location.state.lowerwordlimit} /></div>
     </div>
     </section>
     </div>

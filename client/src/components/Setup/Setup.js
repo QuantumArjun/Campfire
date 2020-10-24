@@ -68,30 +68,30 @@ const Setup = ({ location }) => {
 
 
   return (
-      <div class="Container">
+      <div className="Container">
         <section id = "general">
           <h1> set your preferences </h1> <br></br>
-            <label for="topic">Topic:</label>
+            <label htmlFor="topic">Topic:</label>
             <input type="text" id="topic" name="topic" onChange={(event) => {
               setTopic(event.target.value)}}></input>
             <div className="setup-grid">
               <div>
-                <label for="lowerwordlimit">Lower Word Limit:</label>
+                <label htmlFor="lowerwordlimit">Lower Word Limit:</label>
                 <input type="text" id="lowerwordlimit" name="lowerwordlimit" onChange={(event) => {
                   setLowerWordLimit(event.target.value)}}></input>
               </div>
               <div>
-                <label for="higherwordlimit">Higher Word Limit:</label>
+                <label htmlFor="higherwordlimit">Higher Word Limit:</label>
                 <input type="text" id="higherwordlimit" name="higherwordlimit" onChange={(event) => {
                   setHigherWordLimit(event.target.value)}}></input>
               </div>
               <div>
-                <label for="storylength">Story Length:</label>
+                <label htmlFor="storylength">Story Length:</label>
                 <input type="text" id="storylength" name="storylength" onChange={(event) => {
                   setStoryLength(event.target.value)}}></input>
               </div>
               <div>
-                <label for="timelimit">Time Limit:</label>
+                <label htmlFor="timelimit">Time Limit:</label>
                 <input type="text" id="timelimit" name="timelimit" onChange={(event) => {
                   setTimeLimit(event.target.value)}}></input>
               </div>

@@ -60,6 +60,7 @@ const addRoom = ({ room, mode, topic, lowerwordlimit, higherwordlimit, storyleng
   higherwordlimit = higherwordlimit;
   storylength = storylength;
   timelimit = timelimit;
+  console.log("adding new room" + lowerwordlimit + higherwordlimit);
 
   const newRoom = { roomName, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit }; 
 
