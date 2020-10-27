@@ -3,7 +3,7 @@ const express = require('express');
 const socketio = require('socket.io');
 const cors = require('cors');
 
-const { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom } = require('./users');
+const { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom, advanceTurn } = require('./users');
 
 const router = require('./router');
 
@@ -17,21 +17,24 @@ app.use(cors());
 app.use(router);
 
 io.on('connect', (socket) => {
+
+  //Todo
+  //Then - Write an "advance turn" function called whenever a turn is advanced
+  //Update Room prefs for every component 
   
   
    
   socket.on('create', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit}, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room, isHost: true });
+    const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, currPlayer: 0});
     if(error) return callback(error);
 
     socket.join(user.room);
     // socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`}); //nuked
     // socket.broadcast.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has joined!` });
+    const test = "hi";
 
-    console.log("Host is joining: ", {room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit} )
-    const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit});
-
-    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room), roomPrefs: getRoom(room) });
+    io.to(user.room).emit('roomData', { users: getUsersInRoom(user.room)});
 
     callback(); 
   });
@@ -41,9 +44,9 @@ io.on('connect', (socket) => {
     if(error) return callback(error);
 
     socket.join(user.room);
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`}); //nuked
-    socket.broadcast.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has joined!` });
-    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room), roomPrefs: getRoom(room) });
+    //socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`}); //nuked
+    //socket.broadcast.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has joined!` });
+    io.to(user.room).emit('roomData', { users: getUsersInRoom(user.room) });
 
     callback(); 
   });
@@ -51,8 +54,11 @@ io.on('connect', (socket) => {
 
   socket.on('sendMessage', (message, callback) => {
     const user = getUser(socket.id);
+    let room = user.room;
+    currPlayer = advanceTurn(room)
 
     io.to(user.room).emit('message', { user: user.name, color: user.color, text: message });
+    io.to(user.room).emit('advanceTurn', { currPlayer: currPlayer});
 
     callback();
   }); 
@@ -60,8 +66,8 @@ io.on('connect', (socket) => {
 
   socket.on('start', () => {
     const user = getUser(socket.id);
-
-    io.to(user.room).emit('startSignal', {});
+ 
+    io.to(user.room).emit('startSignal', {roomPrefs: getRoom(user.room)}); 
   }); 
 
   socket.on('disconnect', () => {
