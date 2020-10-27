@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Input.css';
 
-const Input = ({ setMessage, sendMessage, message, activePlayer }) => (
+const Input = ({ setMessage, sendMessage, message, gameStart, roomPrefs}) => (
     <form className="form">
       <input
         className="input"
@@ -12,7 +12,7 @@ const Input = ({ setMessage, sendMessage, message, activePlayer }) => (
         onChange={({ target: { value } }) => setMessage(value)}
         onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
       />
-      <button className="sendButton" onClick={e => sendMessage(e)}>Send</button>
+      <button className="sendButton" onClick={e => sendMessage(e)}>{roomPrefs.roomPrefs.lowerwordlimit}</button>
     </form>
 )
 

@@ -24,7 +24,7 @@ const Lobby = ({ location }) => {
   const [activePlayer, setActivePlayer] = useState('');
 
   const [roomPrefs, setRoomPrefs] = useState('');
-  //const [gameStart, setGameStart] = useState('');
+  const [gameStart, setGameStart] = useState(false);
   //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
   const ENDPOINT = 'http://localhost:5000/';
 
@@ -87,20 +87,10 @@ const Lobby = ({ location }) => {
 
     socket.on("startSignal", roomPrefs => {
       setRoomPrefs(roomPrefs)
-      console.log(roomPrefs)
+      setGameStart(true)
+
       revealChat();
-    });
 
-    socket.on("advanceTurn", ({currPlayer}) => {
-      console.log("Users", currPlayer.currPlayer.name)
-      console.log(name)
-      if (currPlayer.currPlayer.name == myName){
-        setActivePlayer(true)
-      } else {
-        setActivePlayer(false)
-      }
-
-      console.log("Room Prefs", roomPrefs)
     });
 
 }, []);
@@ -131,6 +121,8 @@ useEffect(() => {
   
   return (
     <div>
+      {console.log("RoomPrefs", roomPrefs.roomPrefs)}
+      {console.log("GameStart", gameStart)}
     <section id="invite">
       <div className="outerContainer" id="inviteContainer">
       <h1> Set Up Your Campfire</h1>
@@ -153,9 +145,11 @@ useEffect(() => {
            <Messages messages={messages} name={location.state.name} />
           <div id="userBox"> <h2> Storytellers </h2><TextContainer users={users}/></div>
       </div>
-      { activePlayer == true && <div id="inputBox">
-        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
-        </div>  }
+      { gameStart == true && activePlayer == true && <div id="inputBox">
+        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} roomPrefs = {roomPrefs} />
+        </div>  
+        
+        }
     </div>
     </section>
     </div>
