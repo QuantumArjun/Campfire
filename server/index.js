@@ -10,18 +10,14 @@ const router = require('./router');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-//What preferences are attached to each room 
-// We want that to only be set by the host
+console.log("Created")
 
 app.use(cors());
 app.use(router);
 
 io.on('connect', (socket) => {
+  console.log("Connected");
 
-  //Todo
-  //Then - Write an "advance turn" function called whenever a turn is advanced
-  //Update Room prefs for every component 
-  
   
    
   socket.on('create', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit}, callback) => {
