@@ -13,11 +13,15 @@ import './Lobby.css';
 
 let socket;
 
+var myName = "";
+
 const Lobby = ({ location }) => {
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [isHost, setisHost] = useState('');
+  const [name, setName] = useState('');
+  const [activePlayer, setActivePlayer] = useState('');
 
   const [roomPrefs, setRoomPrefs] = useState('');
   const [gameStart, setGameStart] = useState('');
@@ -29,11 +33,15 @@ const Lobby = ({ location }) => {
   useEffect(() => {
     const {name, room, isHost} =  location.state;
     socket = io(ENDPOINT);
+
+    let fixedName = name.trim().toLowerCase();
+    setName(fixedName);
+    myName = fixedName;
     
     if(isHost) 
-    {
-      console.log("Reached")
+    { 
       setisHost("true")
+      setActivePlayer(true)
       const {mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit } = location.state;
   
       socket.emit('create', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit}, (error) => {
@@ -83,6 +91,16 @@ const Lobby = ({ location }) => {
       revealChat();
     });
 
+    socket.on("advanceTurn", ({currPlayer}) => {
+      console.log("Users", currPlayer.currPlayer.name)
+      console.log(name)
+      if (currPlayer.currPlayer.name == myName){
+        setActivePlayer(true)
+      } else {
+        setActivePlayer(false)
+      }
+    });
+
 }, []);
 
   const sendMessage = (event) => {
@@ -117,7 +135,9 @@ const Lobby = ({ location }) => {
            <Messages messages={messages} name={location.state.name} />
           <div id="userBox"> <h2> Storytellers </h2><TextContainer users={users}/></div>
       </div>
-      <div id="inputBox"><Input message={message} setMessage={setMessage} sendMessage={sendMessage} /></div>
+      { activePlayer == true && <div id="inputBox">
+        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+        </div>  }
     </div>
     </section>
     </div>

@@ -61,31 +61,25 @@ const addRoom = ({ room, mode, topic, lowerwordlimit, higherwordlimit, storyleng
   storylength = storylength;
   timelimit = timelimit;
 
-  const newRoom = { roomName, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit }; 
+  const newRoom = { roomName, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, currPlayer: 0 }; 
 
   rooms.push(newRoom);
 
   return { newRoom };
 }
 
-const getRoom = (roomName) => rooms.find((room) => room.roomName === roomName);
+const getRoom = (targetName) => rooms.find((room) => room.roomName == targetName);
 
-const advanceTurn = ({ room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit} ) => {
-  roomName = room.trim().toLowerCase();
-  topic = topic;
-  lowerwordlimit = lowerwordlimit;
-  higherwordlimit = higherwordlimit;
-  storylength = storylength;
-  timelimit = timelimit;
+const advanceTurn = (room ) => {
+  let currRoom = getRoom(room);
+  console.log(currRoom)
+  currRoom.currPlayer = (currRoom.currPlayer + 1) % getUsersInRoom(room).length;
+  let currPlayer = getUsersInRoom(room)[currRoom.currPlayer];
 
-  const newRoom = { roomName, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit }; 
-
-  rooms.push(newRoom);
-
-  return { newRoom };
+  return { currPlayer };
 }
 
-
+ 
 
 /*
 user {
