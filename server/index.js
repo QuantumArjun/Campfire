@@ -29,6 +29,7 @@ io.on('connect', (socket) => {
     // socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`}); //nuked
     // socket.broadcast.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has joined!` });
     const test = "hi";
+    console.log(getUsersInRoom(user.room));
 
     io.to(user.room).emit('roomData', { users: getUsersInRoom(user.room)});
 
