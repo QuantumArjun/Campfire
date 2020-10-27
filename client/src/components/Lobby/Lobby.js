@@ -25,8 +25,8 @@ const Lobby = ({ location }) => {
 
   const [roomPrefs, setRoomPrefs] = useState('');
   const [gameStart, setGameStart] = useState(false);
-  //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
-  const ENDPOINT = 'http://localhost:5000/';
+  const ENDPOINT = "https://campfire-storytellers.herokuapp.com/"
+  //const ENDPOINT = 'http://localhost:5000/';
 
 
 
@@ -81,7 +81,8 @@ const Lobby = ({ location }) => {
     
     socket.on('roomData', users => {
       //setUsers(users);
-      console.log(users.users)
+      console.log(users)
+      console.log("Server connection established")
       setUsers(users.users);
     });
 
