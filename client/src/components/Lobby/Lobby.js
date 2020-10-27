@@ -145,8 +145,8 @@ useEffect(() => {
            <Messages messages={messages} name={location.state.name} />
           <div id="userBox"> <h2> Storytellers </h2><TextContainer users={users}/></div>
       </div>
-      { activePlayer == true && <div id="inputBox">
-        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} roomPrefs = {roomPrefs} gameStart = {gameStart} />
+      { gameStart == true && activePlayer == true && <div id="inputBox">
+        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} roomPrefs = {roomPrefs} />
         </div>  
         
         }
