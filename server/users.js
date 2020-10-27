@@ -70,6 +70,23 @@ const addRoom = ({ room, mode, topic, lowerwordlimit, higherwordlimit, storyleng
 
 const getRoom = (roomName) => rooms.find((room) => room.roomName === roomName);
 
+const advanceTurn = ({ room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit} ) => {
+  roomName = room.trim().toLowerCase();
+  topic = topic;
+  lowerwordlimit = lowerwordlimit;
+  higherwordlimit = higherwordlimit;
+  storylength = storylength;
+  timelimit = timelimit;
+
+  const newRoom = { roomName, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit }; 
+
+  rooms.push(newRoom);
+
+  return { newRoom };
+}
+
+
+
 /*
 user {
   id,
@@ -85,4 +102,4 @@ room {
 
 //add user host property (transfer)
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom };
+module.exports = { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom, advanceTurn };

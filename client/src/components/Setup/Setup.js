@@ -97,7 +97,7 @@ const Setup = ({ location }) => {
               </div>
               </div>
         <Link to={ {pathname: '/lobby',
-          state: {name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength,timelimit}}}>
+          state: {name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength,timelimit, isHost: true}}}>
           <button className={'setup-button mt-20'} type="submit">Continue</button>
         </Link>
 
