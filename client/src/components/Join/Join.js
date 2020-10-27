@@ -14,7 +14,6 @@ function revealSection()
 export default function Join() {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
-  const [usedRooms, setUsedRooms] = useState([]);
   
   function handleUserInput(e, name){
     if (e.key === 'Enter') {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from 'query-string';
 import { Link } from "react-router-dom";
-import { Lobby } from "../Lobby/Lobby.js";
+//import { Lobby } from "../Lobby/Lobby.js";
 
 import './Setup.css';
 /*
@@ -46,7 +46,6 @@ const Setup = ({ location }) => {
       
       if (!usedRooms.includes(chosenRoom)) {
         console.log("I made it!")
-        //usedRooms.push(chosenRoom);
         setUsedRooms([...usedRooms, chosenRoom]);
         setRoom(chosenRoom);
         bool1 = false;
@@ -60,8 +59,6 @@ const Setup = ({ location }) => {
 
     genRoom(roomList);
     setName(name);
-    console.log(name);
-    console.log(room);
 
   }, [ENDPOINT, location.search]);
   

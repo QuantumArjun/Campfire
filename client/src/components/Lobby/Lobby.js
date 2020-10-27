@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import queryString from 'query-string';
+//import queryString from 'query-string';
 import io from "socket.io-client";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
-import GameScreen from '../GameScreen/GameScreen';
+//import GameScreen from '../GameScreen/GameScreen';
 
 import './Lobby.css';
 
@@ -24,7 +24,7 @@ const Lobby = ({ location }) => {
   const [activePlayer, setActivePlayer] = useState('');
 
   const [roomPrefs, setRoomPrefs] = useState('');
-  const [gameStart, setGameStart] = useState('');
+  //const [gameStart, setGameStart] = useState('');
   //const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
   const ENDPOINT = 'http://localhost:5000/';
 
@@ -99,9 +99,27 @@ const Lobby = ({ location }) => {
       } else {
         setActivePlayer(false)
       }
+
+      console.log("Room Prefs", roomPrefs)
     });
 
 }, []);
+
+useEffect(() => {
+
+  socket.on("advanceTurn", ({currPlayer}) => {
+    console.log("Users", currPlayer.currPlayer.name)
+    console.log(name)
+    if (currPlayer.currPlayer.name == myName){
+      setActivePlayer(true)
+    } else {
+      setActivePlayer(false)
+    }
+
+    console.log("Room Prefs", roomPrefs)
+  });
+
+}, [roomPrefs, name]);
 
   const sendMessage = (event) => {
     event.preventDefault();
