@@ -3,7 +3,7 @@ const express = require('express');
 const socketio = require('socket.io');
 const cors = require('cors');
 
-const { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom, advanceTurn } = require('./users');
+const { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom, advanceTurn, updateGlobalWordCount } = require('./users');
 
 const router = require('./router');
 
@@ -20,9 +20,9 @@ io.on('connect', (socket) => {
 
   
    
-  socket.on('create', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit}, callback) => {
+  socket.on('create', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount}, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room, isHost: true });
-    const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, currPlayer: 0});
+    const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, currPlayer: 0, wordcount});
     if(error) return callback(error);
 
     socket.join(user.room);
@@ -53,18 +53,20 @@ io.on('connect', (socket) => {
     const user = getUser(socket.id);
     let room = user.room;
     currPlayer = advanceTurn(room)
+    newLocalWC = message === "" ? 0 : message.split(" ").length;
+    let newGlobalWC = updateGlobalWordCount(room, newLocalWC);
 
     io.to(user.room).emit('message', { user: user.name, color: user.color, text: message });
     io.to(user.room).emit('advanceTurn', { currPlayer: currPlayer});
-
+    io.to(user.room).emit('newGlobalWC', { newWC: newGlobalWC});
     callback();
   }); 
-
-
+  
   socket.on('start', () => {
     const user = getUser(socket.id);
  
     io.to(user.room).emit('startSignal', {roomPrefs: getRoom(user.room)}); 
+    io.to(user.room).emit('newGlobalWC', { newWC: 0});
   }); 
 
   socket.on('disconnect', () => {

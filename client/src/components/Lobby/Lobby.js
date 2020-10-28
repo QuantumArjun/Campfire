@@ -22,6 +22,7 @@ const Lobby = ({ location }) => {
   const [isHost, setisHost] = useState('');
   const [name, setName] = useState('');
   const [activePlayer, setActivePlayer] = useState('');
+  const [wordcount, setWordCount] = useState('');
 
   const [roomPrefs, setRoomPrefs] = useState('');
   const [gameStart, setGameStart] = useState(false);
@@ -42,9 +43,9 @@ const Lobby = ({ location }) => {
     { 
       setisHost("true")
       setActivePlayer(true)
-      const {mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit } = location.state;
+      const {mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount } = location.state;
   
-      socket.emit('create', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit}, (error) => {
+      socket.emit('create', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount}, (error) => {
         if(error) {
           alert(error);
         }
@@ -92,6 +93,11 @@ const Lobby = ({ location }) => {
 
       revealChat();
 
+    });
+
+    socket.on("newGlobalWC", newWC =>{
+      console.log(newWC);
+      setWordCount(newWC.newWC);
     });
 
 }, []);
@@ -144,8 +150,14 @@ useEffect(() => {
       <div className="rmContainer">
           <InfoBar room={location.state.room} />
            <Messages messages={messages} name={location.state.name} />
-          <div id="userBox"> <h2> Storytellers </h2><TextContainer users={users}/></div>
-      </div>
+           { gameStart == true && <div id="userBox"> 
+                            <h2> Storytellers </h2><TextContainer users={users}/>
+                            <h2> Story Word Count: {wordcount} </h2>
+                            <h2> Story Word Count Goal: {roomPrefs.roomPrefs.storylength} </h2>
+                            <h2> Min Words Per Turn: {roomPrefs.roomPrefs.lowerwordlimit} </h2>
+                            <h2> Max Words Per Turn: {roomPrefs.roomPrefs.higherwordlimit} </h2>
+          </div> }
+        </div> 
       { gameStart == true && activePlayer == true && <div id="inputBox">
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} roomPrefs = {roomPrefs} />
         </div>  

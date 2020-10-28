@@ -61,7 +61,7 @@ const addRoom = ({ room, mode, topic, lowerwordlimit, higherwordlimit, storyleng
   storylength = storylength;
   timelimit = timelimit;
 
-  const newRoom = { roomName, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, currPlayer: 0 }; 
+  const newRoom = { roomName, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, currPlayer: 0, wordcount: 0 }; 
 
   rooms.push(newRoom);
 
@@ -77,6 +77,13 @@ const advanceTurn = (room ) => {
   let currPlayer = getUsersInRoom(room)[currRoom.currPlayer];
 
   return { currPlayer };
+}
+
+const updateGlobalWordCount = (room, localWC) =>
+{
+  let currRoom = getRoom(room);
+  currRoom.wordcount += localWC;
+  return currRoom.wordcount;
 }
 
  
@@ -96,4 +103,4 @@ room {
 
 //add user host property (transfer)
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom, advanceTurn };
+module.exports = { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom, advanceTurn, updateGlobalWordCount};
