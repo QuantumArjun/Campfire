@@ -1,3 +1,3 @@
 # Campfire
 
-Play at campfire-storytellers-fronted.herokuapp.com!
+Play at campfire-stories-frontend.herokuapp.com!
