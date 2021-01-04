@@ -20,8 +20,8 @@ io.on('connect', (socket) => {
 
   
    
-  socket.on('create', ({name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount}, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, room, isHost: true });
+  socket.on('create', ({name, color, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount}, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, color, room, isHost: true });
     const newRoom = addRoom({room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, currPlayer: 0, wordcount});
     if(error) return callback(error);
 
@@ -36,8 +36,8 @@ io.on('connect', (socket) => {
     callback(); 
   });
 
-  socket.on('join', ({name, room }, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, room, isHost: false });
+  socket.on('join', ({name, color, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, color, room, isHost: false });
     if(error) return callback(error);
 
     socket.join(user.room);

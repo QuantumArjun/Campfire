@@ -21,6 +21,7 @@ const Lobby = ({ location }) => {
   const [messages, setMessages] = useState([]);
   const [isHost, setisHost] = useState('');
   const [name, setName] = useState('');
+  const [color, setColor] = useState('');
   const [activePlayer, setActivePlayer] = useState('');
   const [wordcount, setWordCount] = useState('');
 
@@ -32,8 +33,10 @@ const Lobby = ({ location }) => {
 
 
   useEffect(() => {
-    const {name, room, isHost} =  location.state;
+    const {name, color, room, isHost} =  location.state;
     socket = io(ENDPOINT);
+    setColor(color);
+    console.log(color,"asdasdasd");
 
     let fixedName = name.trim().toLowerCase();
     setName(fixedName);
@@ -45,7 +48,7 @@ const Lobby = ({ location }) => {
       setActivePlayer(true)
       const {mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount } = location.state;
   
-      socket.emit('create', { name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount}, (error) => {
+      socket.emit('create', { name, color, room, mode, topic, lowerwordlimit, higherwordlimit, storylength, timelimit, wordcount}, (error) => {
         if(error) {
           alert(error);
         }
@@ -53,7 +56,7 @@ const Lobby = ({ location }) => {
     }
     else 
     {
-      socket.emit('join', { name, room}, (error) => {
+      socket.emit('join', { name, color, room}, (error) => {
         if(error) {
           alert(error);
         }
