@@ -12,6 +12,7 @@ Todo
 
 const Setup = ({ location }) => {
   const [name, setName] = useState('');
+  const [color, setColor] = useState('');
   const [room, setRoom] = useState('');
   const [usedRooms, setUsedRooms] = useState([]);
   const [mode, setMode] = useState('');
@@ -55,9 +56,11 @@ const Setup = ({ location }) => {
   }
 
   useEffect(() => {
-    const { name } = queryString.parse(location.search);
+    // const { name } = queryString.parse(location.search);
+    const {name, color} =  location.state;
 
     genRoom(roomList);
+    setColor(color);
     setName(name);
 
   }, [ENDPOINT, location.search]);
@@ -94,7 +97,7 @@ const Setup = ({ location }) => {
               </div>
               </div>
         <Link to={ {pathname: '/lobby',
-          state: {name, room, mode, topic, lowerwordlimit, higherwordlimit, storylength,timelimit, isHost: true}}}>
+          state: {name, color, room, mode, topic, lowerwordlimit, higherwordlimit, storylength,timelimit, isHost: true}}}>
           <button className={'setup-button mt-20'} type="submit">Continue</button>
         </Link>
 
