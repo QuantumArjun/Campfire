@@ -1,7 +1,7 @@
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-const cors = require('cors');
+// const cors = require('cors');
 
 const { addUser, removeUser, getUser, getUsersInRoom, addRoom, getRoom, advanceTurn, updateGlobalWordCount } = require('./users');
 
@@ -12,7 +12,7 @@ const server = http.createServer(app);
 const io = socketio(server);
 console.log("Created")
 
-app.use(cors());
+// app.use(cors());
 app.use(router);
 
 io.on('connect', (socket) => {

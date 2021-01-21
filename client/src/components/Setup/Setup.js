@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import InputRange from 'react-input-range';
 import "react-input-range/lib/css/index.css";
+import Papa from 'papaparse';
 //import { Lobby } from "../Lobby/Lobby.js";
 
 import './Setup.css';
@@ -24,9 +25,12 @@ const Setup = ({ location }) => {
   const [storylength, setStoryLength] = useState(3);
   const [timelimit, setTimeLimit] = useState(60);
   const [fieldError, setFieldError] = useState({});
+  const [topicStarters, setTopicStarters] = useState([])
   // const [testValue, setTestValue] = useState({value: { min: 20, max: 100 }})
 
-  const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
+  // const ENDPOINT = 'https://campfire-storytellers.herokuapp.com/';
+  const ENDPOINT = 'http://localhost:5000/';
+  
   let history = useHistory();
   
   var adj_arr = ['aggressive', 'alert', 'alive', 'ancient', 'anxious', 'arrow', 'attractive', 'average', 'bad', 'beautiful', 'beige', 'better', 'big', 'bitter', 'black', 'blue', 'brown', 'bumpy', 'busy', 'careful', 'cheap', 'chestnut', 'clear', 'cold', 'combative', 'cool', 'cotton', 'crazy', 'crooked', 'crystal', 'dangerous', 'dead', 'delicious', 'dim', 'drab', 'dry', 'dull', 'dusty', 'elderly', 'excited', 'expensive', 'fancy', 'fat', 'few', 'filthy', 'fresh', 'fuzzy', 'giant', 'good', 'graceful', 'granite', 'green', 'handsome', 'happy', 'hard', 'harsh', 'hollow', 'hot', 'huge', 'hungry', 'large', 'lazy', 'light', 'long', 'low', 'massive', 'mellow', 'melodic', 'miniscule', 'modern', 'new', 'noisy', 'oak', 'octagonal', 'old', 'orange', 'oval', 'petite', 'pink', 'plain', 'plastic', 'poor', 'puny', 'purple', 'quiet', 'rainy', 'red', 'rich', 'right', 'round', 'sad', 'safe', 'salty', 'sane', 'scared', 'shallow', 'sharp', 'shiny', 'short', 'shrill', 'shy', 'skinny', 'small', 'soft', 'solid', 'sore', 'sour', 'square', 'steep', 'sticky', 'strong', 'superior', 'sweet', 'swift', 'tan', 'tart', 'teak', 'teeny', 'terrible', 'tiny', 'tired', 'tremendous', 'triangular', 'ugly', 'unusual', 'weak', 'weary', 'wet', 'whispering', 'white', 'wild', 'wooden', 'woolen', 'wrong', 'yellow', 'young']
@@ -69,6 +73,27 @@ const Setup = ({ location }) => {
     setName(name);
 
   }, [ENDPOINT, location.search]);
+
+  useEffect(() => {
+    async function getData() {
+      const response = await fetch('textAssets/topicStarters/topicStarters.csv');
+      const reader = response.body.getReader();
+      const result = await reader.read(); // raw array
+      const decoder = new TextDecoder('utf-8');
+      const csv = decoder.decode(result.value); // the csv text
+      const results = Papa.parse(csv); // object with { data, errors, meta }
+      const rows = results.data; // array of objects
+      setTopicStarters(rows);
+      console.log(rows)
+    }
+    getData()
+  },[]);
+
+
+
+
+
+
 
   function handleSetupSubmit (event) {
     event.preventDefault();
@@ -131,6 +156,27 @@ const Setup = ({ location }) => {
     }
     return internal_bool;
   }
+
+
+
+  function feelingLucky(event) {
+    event.preventDefault();
+    //First step is to import the csv file
+    //Then papa parse
+    //then we have our data in a json
+    //Pick random from Json and set it as the value of the 
+    //Set data from csv in State
+    
+    //generates a random number
+    const min = 1;
+    const max = 301;
+    const rand = min + Math.random() * (max - min);
+
+
+    const rand_topic = topicStarters[parseInt(rand)][0];
+    console.log(rand_topic);
+    setTopic("rand_topic");
+  }
   
 
 
@@ -140,8 +186,16 @@ const Setup = ({ location }) => {
           <h1> set your preferences </h1> <br></br>
             <label for="topic">Topic:</label>
             <p color="red">{fieldError.topicError}</p>
-            <input type="text" id="topic" name="topic" onChange={(event) => {
+            <textarea type="text" id="topic" name="topic" onChange={(event) => {
+              setTopic(event.target.value)}}>{topic}</textarea>
+
+            <div>
+            <input type="text" id="topic2" name="topic2" onChange={(event) => {
               setTopic(event.target.value)}}></input>
+            </div>
+
+            <button onClick={feelingLucky}>Feeling Lucky?</button>
+
             <div className="setup-grid">
               <div>
               <label for="storylength">Number of Rounds:</label>
